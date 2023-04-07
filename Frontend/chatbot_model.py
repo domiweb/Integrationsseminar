@@ -56,4 +56,3 @@ def get_response(intents_list, intents_json):
 
 print("Go! Botmedix is working")
 
-

@@ -4,30 +4,30 @@ import chatbot_model
 
 # from chatbot_model import predict_class, get_response, dataf
 conf = {
-	"/static":
-		{
-			"tools.staticdir.on": True,
-		 	"tools.staticdir.dir": os.path.abspath("./static"),
-		},
-	'/main.css':
-		{
-			'tools.staticfile.on': True,
-		 	'tools.staticfile.filename': os.path.abspath("./static/main.css"),
-		},
-	'/main.js':
-		{
-			'tools.staticfile.on': True,
-			'tools.staticfile.filename': os.path.abspath("./static/main.js"),
+    "/static":
+        {
+            "tools.staticdir.on": True,
+            "tools.staticdir.dir": os.path.abspath("./static"),
+        },
+    '/main.css':
+        {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': os.path.abspath("./static/main.css"),
+        },
+    '/main.js':
+        {
+            'tools.staticfile.on': True,
+            'tools.staticfile.filename': os.path.abspath("./static/main.js"),
 
-		}
+        }
 }
 
 
 class Chatbot(object):
 
-	@cherrypy.expose
-	def index(self):
-		return '''
+    @cherrypy.expose
+    def index(self):
+        return '''
             <html>
 
 <head>
@@ -59,17 +59,17 @@ class Chatbot(object):
 				$.ajax({
 					type: 'POST',
 					url: '/submit',
-					data: { user_input: userInput },
+					data: { user_input: userInput},
 					dataType: 'text',
 					success: function(response) {
-						//showUserMessage(userInput);
+						showUserMessage(userInput);
 						showBotMessage(response);
 						},
 					error: function() {
 						alert('An error occurred.');
 					}
 				});
-				$('#user-input').val('');
+				$('#msg_input').val('');
 			});
 		});
 	</script>
@@ -152,20 +152,20 @@ class Chatbot(object):
 
         '''
 
-	user_input = cherrypy.request.params.get("msg_input")
-	@cherrypy.expose
+    user_input = cherrypy.request.params.get("msg_input")
 
-	def submit(self, user_input):
-		print("Der User input ist:",user_input)
-		ints = chatbot_model.predict_class(user_input)
-		print(ints)
-		res = chatbot_model.get_response(ints, chatbot_model.data)
-		print(res)
+    @cherrypy.expose
+    def submit(self, user_input):
+        print("Der User input ist:", user_input)
+        ints = chatbot_model.predict_class(user_input)
+        print(ints)
+        res = chatbot_model.get_response(ints, chatbot_model.data)
+        print(res)
 
-		# return message
+        # return message
 
-		return res
+        return res
 
 
 if __name__ == '__main__':
-	cherrypy.quickstart(Chatbot(), '/', config=conf)
+    cherrypy.quickstart(Chatbot(), '/', config=conf)
