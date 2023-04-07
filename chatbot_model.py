@@ -6,6 +6,10 @@ import numpy as np
 import random
 import json
 
+nltk.download('punkt')
+nltk.download('wordnet')
+
+
 lemmatizer = WordNetLemmatizer()
 
 with open('dataset.json', 'r+') as f:
@@ -13,7 +17,7 @@ with open('dataset.json', 'r+') as f:
   
 words = pickle.load(open('words.pkl', 'rb'))
 classes = pickle.load(open('classes.pkl', 'rb'))
-botmedix = load_model('botmedix.h5')
+botmedix = load_model('botmedix_90PC.h5')
 
 def clean_up_sentence(sentence):
     sentence_words = nltk.word_tokenize(sentence)
@@ -53,7 +57,7 @@ def get_response(intents_list, intents_json):
 print("Go! Botmedix is working")
 
 while True:
-    message = input("")
-    ints = predict_class(message)
-    res = get_response(ints, data)
-    print(res)
+  message = input("")
+  ints = predict_class(message)
+  res = get_response(ints, data)
+  print(res)

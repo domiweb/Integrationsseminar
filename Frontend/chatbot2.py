@@ -1,10 +1,26 @@
 import cherrypy
+import os
 import chatbot_model
-#from chatbot_model import predict_class, get_response, dataf
 
+# from chatbot_model import predict_class, get_response, dataf
+conf = {
+	"/static":
+		{
+			"tools.staticdir.on": True,
+		 	"tools.staticdir.dir": os.path.abspath("./static"),
+		},
+	'/main.css':
+		{
+			'tools.staticfile.on': True,
+		 	'tools.staticfile.filename': os.path.abspath("./static/main.css"),
+		},
+	'/main.js':
+		{
+			'tools.staticfile.on': True,
+			'tools.staticfile.filename': os.path.abspath("./static/main.js"),
 
-
-cherrypy.config.update({'server.socket_port': 8099})
+		}
+}
 
 
 class Chatbot(object):
@@ -41,21 +57,21 @@ class Chatbot(object):
 			$('#send_button').click(function() {
 				var userInput = $('#msg_input').val();
 				$.ajax({
-	type: 'POST',
-	url: '/submit',
-	data: { user_input: userInput },
-	dataType: 'text',
-	success: function(response) {
-	alert(response);
-	// Hier können Sie Ihre JS-Funktion aufrufen
-	},
-	error: function() {
-	alert('An error occurred.');
-	}
-	});
-	$('#user-input').val('');
-	});
-	});
+					type: 'POST',
+					url: '/submit',
+					data: { user_input: userInput },
+					dataType: 'text',
+					success: function(response) {
+						//showUserMessage(userInput);
+						showBotMessage(response);
+						},
+					error: function() {
+						alert('An error occurred.');
+					}
+				});
+				$('#user-input').val('');
+			});
+		});
 	</script>
 
 
@@ -81,7 +97,7 @@ class Chatbot(object):
 
 					<!-- input -->
 					<div class="bottom_wrapper">
-						<input id="msg_input" placeholder="Say Hi to begin chat..." />
+						<input name="msg_input" id="msg_input" placeholder="Say Hi to begin chat..." />
 						<button id="send_button" class="app_button_1">Send</button>
 					</div>
 
@@ -136,11 +152,15 @@ class Chatbot(object):
 
         '''
 
+	user_input = cherrypy.request.params.get("msg_input")
 	@cherrypy.expose
-	def submit(self, user_input):
 
+	def submit(self, user_input):
+		print("Der User input ist:",user_input)
 		ints = chatbot_model.predict_class(user_input)
+		print(ints)
 		res = chatbot_model.get_response(ints, chatbot_model.data)
+		print(res)
 
 		# return message
 
@@ -148,4 +168,4 @@ class Chatbot(object):
 
 
 if __name__ == '__main__':
-	cherrypy.quickstart(Chatbot())
+	cherrypy.quickstart(Chatbot(), '/', config=conf)
