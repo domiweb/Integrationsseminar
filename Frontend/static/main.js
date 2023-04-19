@@ -11,7 +11,7 @@ function getCurrentTimestamp() {
  */
 function renderMessageToScreen(args) {
 	// local variables
-	let displayDate = (args.time || getCurrentTimestamp()).toLocaleString('en-IN', {
+	let displayDate = (args.time || getCurrentTimestamp()).toLocaleString('de-DE', {
 		month: 'short',
 		day: 'numeric',
 		hour: 'numeric',
@@ -67,5 +67,5 @@ function showBotMessage(message, datetime) {
  * Set initial bot message to the screen for the user.
  */
 $(window).on('load', function () {
-	showBotMessage('Willommen beim MedISS Chatbot. Wo drückt der Schuh?');
+	showBotMessage('Willommen beim MedISS Chatbot. Bitte geben Sie die Symptome ein.');
 });
