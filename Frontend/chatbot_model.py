@@ -1,6 +1,7 @@
 import nltk
 from nltk.stem import WordNetLemmatizer
 from tensorflow.keras.models import load_model
+from nltk.corpus import stopwords
 import pickle
 import numpy as np
 import random
@@ -8,18 +9,19 @@ import json
 
 nltk.download('punkt')
 nltk.download('wordnet')
+nltk.download('stopwords')
 
 
 lemmatizer = WordNetLemmatizer()
 
-with open('dataset.json', 'r+') as f:
+with open('dataset 2.json', 'r+') as f:
     data = json.load(f)
 
 words = pickle.load(open('words.pkl', 'rb'))
 classes = pickle.load(open('classes.pkl', 'rb'))
 botmedix = load_model('botmedix.h5')
 
-from nltk.corpus import stopwords
+
 stop_words = stopwords.words('english')
 stop_words.extend(['The', 'patient', 'suffering'])
 def clean_up_sentence(sentence, stop_words=stop_words):
@@ -58,7 +60,8 @@ def get_response(intents_list, intents_json):
         for i, k in enumerate(tag):
             for j in list_of_intents:
                 if j['tag'] == k:
-                    result.append(random.choice(j['responses']) + ' with the probability of ' + prob[i])
+                    tmp = float(prob[i]) * 100
+                    result.append(random.choice(j['responses']) + ' with the probability of ' + str(round(tmp, 2)) + '%')
                     break
     else:
         tag = intents_list[0]['intent']
@@ -69,7 +72,8 @@ def get_response(intents_list, intents_json):
                 if response_.startswith('Are there further symptoms like'):
                     result = response_
                 else:
-                    result = response_ + ' with the probability of ' + prob
+                    tmp = float(prob) * 100
+                    result = response_ + ' with the probability of ' + str(round(tmp, 2)) + '%'
                 break
     return result
 

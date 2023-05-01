@@ -97,8 +97,8 @@ class Chatbot(object):
 
 					<!-- input -->
 					<div class="bottom_wrapper">
-						<input name="msg_input" id="msg_input" placeholder="Bitte geben Sie die Symptome ein." />
-						<button id="send_button" class="app_button_1">Senden</button>
+						<input name="msg_input" id="msg_input" placeholder="Please specify the patient's symptoms" />
+						<button id="send_button" class="app_button_1">Send</button>
 					</div>
 
 				</div>
@@ -110,7 +110,7 @@ class Chatbot(object):
 				<div class="chat_window">
 
 					<div class="top_menu">
-						<div class="title">Hilfe</div>
+						<div class="title">Help</div>
 					</div>
 
 					<!-- help container -->
@@ -121,12 +121,27 @@ class Chatbot(object):
 							<div class="panel-heading">
 								<h4 class="panel-title">
 									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"
-										href="#collapse1">Wie benutze ich den Chatbot?</a>
+										href="#collapse1">How do I use the chatbot</a>
 								</h4>
 							</div>
 							<div id="collapse1" class="panel-collapse collapse in">
 								<div class="panel-body">
-									Geben Sie die Symptome Ihres Patienten ein. Bei mehreren Symptomen trennen Sie diese bitte per Kommata.
+									Enter the symptoms of your patient. If there are several symptoms, please separate them by commas.
+								</div>
+							</div>
+						</div>
+						
+						<!-- help - 2 -->
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"
+										href="#collapse1">How do I use the chatbot</a>
+								</h4>
+							</div>
+							<div id="collapse1" class="panel-collapse collapse in">
+								<div class="panel-body">
+									Enter the symptoms of your patient. If there are several symptoms, please separate them by commas.
 								</div>
 							</div>
 						</div>
@@ -155,11 +170,8 @@ class Chatbot(object):
 
     @cherrypy.expose
     def submit(self, user_input):
-        print("Der User input ist:", user_input)
         ints = chatbot_model.predict_class(user_input)
-        print(ints)
         res = chatbot_model.get_response(ints, chatbot_model.data)
-        print(res)
 
         # return message
 
