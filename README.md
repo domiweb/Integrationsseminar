@@ -15,7 +15,7 @@ Folgende Bibliotheken werden benötigt:
 Nach Installation dieser Bibliotheken sollte der Code reibungslos laufen.
 
 ## Ablauf
-Nachdem die Datei "chatbot2.py" aufgerufen wird, erscheint in der Console ein Localhost-Link. Diesem können Sie folgen, um im Browser eine Konversation mit dem Chatbot durchzuspielen. Dafür können Sie folgendes ausprobieren:
+Nachdem die Datei _chatbot2.py_ aufgerufen wird, erscheint in der Console ein Localhost-Link. Diesem können Sie folgen, um im Browser eine Konversation mit dem Chatbot durchzuspielen. Dafür können Sie folgendes ausprobieren:
 ++++++++Beispielhaft Symptome angeben++++++++++++
 
 ## Training-Notebook
