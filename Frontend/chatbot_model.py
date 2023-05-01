@@ -17,12 +17,15 @@ with open('dataset.json', 'r+') as f:
 
 words = pickle.load(open('words.pkl', 'rb'))
 classes = pickle.load(open('classes.pkl', 'rb'))
-botmedix = load_model('botmedix_90PC.h5')
+botmedix = load_model('botmedix.h5')
 
-def clean_up_sentence(sentence):
-    sentence_words = nltk.word_tokenize(sentence)
-    sentence_words = [lemmatizer.lemmatize(word) for word in sentence_words]
-    return sentence_words
+from nltk.corpus import stopwords
+stop_words = stopwords.words('english')
+stop_words.extend(['The', 'patient', 'suffering'])
+def clean_up_sentence(sentence, stop_words=stop_words):
+  sentence_words = nltk.word_tokenize(sentence)
+  sentence_words = [lemmatizer.lemmatize(word) for word in sentence_words if word not in stop_words]
+  return sentence_words
 
 def bag_of_words(sentence):
     sentence_words = clean_up_sentence(sentence)
@@ -46,12 +49,28 @@ def predict_class(sentence):
     return return_list
 
 def get_response(intents_list, intents_json):
-    tag = intents_list[0]['intent']
     list_of_intents = intents_json['intents']
-    for i in list_of_intents:
-        if i['tag'] == tag:
-            result = random.choice(i['responses'])
-            break
+    if len(intents_list) > 1:
+        tag = [i['intent'] for i in intents_list]
+        prob = [i['probability'] for i in intents_list]
+        result = []
+    # list_of_intents
+        for i, k in enumerate(tag):
+            for j in list_of_intents:
+                if j['tag'] == k:
+                    result.append(random.choice(j['responses']) + ' with the probability of ' + prob[i])
+                    break
+    else:
+        tag = intents_list[0]['intent']
+        prob = intents_list[0]['probability']
+        for i in list_of_intents:
+            if i['tag'] == tag:
+                response_ = random.choice(i['responses'])
+                if response_.startswith('Are there further symptoms like'):
+                    result = response_
+                else:
+                    result = response_ + ' with the probability of ' + prob
+                break
     return result
 
 print("Go! Botmedix is working")
