@@ -16,6 +16,14 @@ Nach Installation dieser Bibliotheken sollte der Code reibungslos laufen.
 
 ## Ablauf
 Nachdem die Datei _chatbot2.py_ aufgerufen wird, erscheint in der Console ein Localhost-Link. Diesem können Sie folgen, um im Browser eine Konversation mit dem Chatbot durchzuspielen. Dafür können Sie folgendes ausprobieren:
-++++++++Beispielhaft Symptome angeben++++++++++++
+  - Erstes Beispiel:
+      - Beginnen mit: *itching*. Sie können danach entweder *skin rash, nodal skin eruptions, dischromic patches* oder die vom Chatbot vorgeschlagenen Symptome eingeben. Damit müssten Sie die Krankehti *fungal infection* erhalten.
+  - Zweites Beispiel:
+      - Beginnen mit: *joint pain, neck pain, knee pain*. Gleich wie oben, können Sie entweder *back pain, weakness in limbs, neck pain, loss of balance* eingeben oder die vom Chatbot vorgeschlagenen Symptome. Sie müssten dann *cervical spondylosis* und *fungal infection* mit den dazugehörigen Wahrscheinlichkeiten erhalten.
+   - Drittes Beispiel: 
+      - Beginnen mit: *fatigue*. Wieder können Sie entweder *throat, high fever, extra marital contacts* oder die vom Chatbot vorgeschlagenen Symptome eingeben. Sie sollten *aids* als Antwort erhalten.
+   - Viertes Beispiel:
+      - Beginnen mit: *chest pain, dizziness*. Sie geben auch hier entweder *chills, vomiting, fatigue, weight loss, cough, high fever, breathlessness* oder die vorgeschlagenen Symptome ein. Sie erhalten danach als Resultate *fungal infection* und *gastroenteritis*.
 
 ## Training-Notebook
+Das Notebook, indem alle Schritte des Trainings enthalten sind, finden Sie im Ordner *Frontend*. Die Datei heißt *chatbot_model_keras.ipynb*.
