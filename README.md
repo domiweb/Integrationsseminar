@@ -1,7 +1,7 @@
 # Anleitung für die Verwendung der Dateien
 
 ## Wo befinden sich die notwendigen Dateien?
-Die notwendigen Dateien sind im Ordner "Frontend". Damit der Chatbot aufgerufen wird, wird die Datei "chatbot2.py" benötigt. Dort befindet sich das Frontend und die Anbindung zum Backend. Das Backend des Chatbots ist in der Datei "chatbot_model.py" enthalten.
+Die notwendigen Dateien sind im Ordner **_Frontend_**. Damit der Chatbot aufgerufen wird, wird die Datei _chatbot2.py_ benötigt. Dort befindet sich das Frontend und die Anbindung zum Backend. Das Backend des Chatbots ist in der Datei *chatbot_model.py* enthalten.
 
 ## Welche Bibliotheken möglicherweise benötigt werden
 Es gibt im Backend einige Bibliotheken, die für das reibungslose ausführen des Codes notwenidg sind. Ggf. müssten diese installiert werden, falls noch nicht vorhanden.
